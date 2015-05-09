@@ -16,10 +16,12 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 <html>
  <head>
  	<meta charset="UTF-8">
+ 	 <script src="cs290ass4b.js"></script> 
   <title>Video Store</title>
  </head>
  <body>
 <h2>Add New Video</h2>
+<div id="messages"></div>
 <form action="cs290-ass4b-addNew.php" id="inputNewVideoForm" method="POST">
 	<!-- get will put parameters in URL --> 
 	<?php
@@ -56,9 +58,10 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 			}
 			else 
 			{ 
-				echo("Successful");
+				echo("Successful: ". $_GET["genreTypes"]."<br>");
 				
 				$select_categories_string = "SELECT * FROM VideoList ";
+				
 				// $category_query = mysqli_query($mysqli, $select_categories_string);	
 				
 					//echo ("Records exist<br>");
@@ -95,13 +98,21 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 		 			   				    <?php
 	 			   		}
 	 			   			// echo("ABC<br>");
+	 			   		$select_string = "SELECT * FROM VideoList ";
+	 						if(!empty($_GET["genreTypes"]))
+							{
+								echo ("hello <br>");
+								$select_string .= "WHERE category = '".$_GET["genreTypes"]."'";
+							} 
+							echo $select_string. "<br>";
 					?>
 					<table>
 				    	<tbody>
 				    		<tr>
 				   			<td>Title<td>Category<td>Length<td>Availability<td>Delete 
 	 		<?php
-	 						$select_string = "SELECT * FROM VideoList ";
+
+							
 	 			   			if ($result = $mysqli->query($select_string))
 	 			   			{
 								while ($row = $result->fetch_assoc())

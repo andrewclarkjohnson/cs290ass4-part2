@@ -2,11 +2,18 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// echo ("hello");
 
-// check title exists AND length is integer
-// echo($_POST["title"]);
-// echo($_POST["length"]);
+// $dbhost = 'oniddb.cws.oregonstate.edu';
+// $dbname = 'johnsan3-db';
+// $dbuser = 'johnsan3-db';
+// $dbpass = 'xIjWTTPPRNZD7mZg';
+
+$dbhost = 'localhost';
+$dbname = 'cs290';
+$dbuser = 'root';
+$dbpass = 'root';
+
+
 if( (empty($_POST["title"])) AND (!(is_numeric($_POST["length"])) ) )
 {
 
@@ -27,7 +34,8 @@ else
 }
 // if made it this far, data was entered successfully by user
 // $mysqli = new mysqli("localhost", "root", "root", "cs290");
-$mysqli = new mysqli("oniddb.cws.oregonstate.edu", "johnsan3-db", "johnsan3-db", "xIjWTTPPRNZD7mZg");
+$mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+// $mysqli = new mysqli("oniddb.cws.oregonstate.edu", "johnsan3-db", "johnsan3-db", "xIjWTTPPRNZD7mZg");
 
 if ($mysqli->connect_errno) {
     echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
