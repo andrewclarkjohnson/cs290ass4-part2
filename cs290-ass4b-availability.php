@@ -12,7 +12,9 @@ $dbpass = 'xIjWTTPPRNZD7mZg';
 // $dbuser = 'root';
 // $dbpass = 'root';
 
-$id_to_delete=$_POST['delete_video'];
+$id_to_update=$_POST['video_id'];
+$previous_availability=$_POST['previous_availability'];
+$genreTypes=$_POST['genre_filter'];
 // echo("$id_to_delete");
 
 // $mysqli = new mysqli("localhost", "root", "root", "cs290");
@@ -24,24 +26,16 @@ if ($mysqli->connect_errno) {
 }
 else 
 { 
-	if(strcmp($id_to_delete,"all")==0)
-	{
-		$delete_string = "DELETE FROM VideoList";
-		// echo("ALL<br>");
-
-	}
-	else
-	{
-		$delete_string = "DELETE FROM VideoList WHERE id = ".$id_to_delete;
+		if ($previous_availability == 0) {$current_availability = 1;} else {$current_availability=0;}
+		$update_string = "UPDATE VideoList SET rented = ".$current_availability." WHERE id = ".$id_to_update;
 		// echo($delete_string."<br>");
-	}
 	
 
-	if ($mysqli->query($delete_string) === TRUE) {
-		header("Location: https://web.engr.oregonstate.edu/~johnsan3/CS290/ass4b/cs290-ass4b.php", true);
-	    // header("Location: http://localhost:8888/assignment4-part2/src/cs290-ass4b.php", true);
+	if ($mysqli->query($update_string) === TRUE) {
+		header('Location: https://web.engr.oregonstate.edu/~johnsan3/CS290/ass4b/cs290-ass4b.php?genreTypes='.$genreTypes);
+	    // header('Location: http://localhost:8888/assignment4-part2/src/cs290-ass4b.php?genreTypes='.$genreTypes);
 	} else {
-	    echo "Error deleting record: " . $mysqli->error;
+	    echo "Error updating record: " . $mysqli->error;
 	}
 }
 

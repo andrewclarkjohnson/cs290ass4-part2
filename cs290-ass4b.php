@@ -39,7 +39,7 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 	} 
 	if($_GET["error"]=="0")
 	{
-		echo ("<span class='error_message'>The video was added to the database!<br></span>");
+		echo ("<span class='success_message'>The video was added to the database!<br></span>");
 	} 
 	?>
     <span class="title_field">Video Title</span>:  <input type="text" name="title" /><br />
@@ -58,7 +58,7 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 			}
 			else 
 			{ 
-				echo("Successful: ". $_GET["genreTypes"]."<br>");
+				// echo("Successful: ". $_GET["genreTypes"]."<br>");
 				
 				$select_categories_string = "SELECT * FROM VideoList ";
 				
@@ -69,22 +69,45 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 					// echo("123<br>");
 					if ($genre_result = $mysqli->query($select_categories_string))
 	 			   			{
+	 			   				// MAKE LIST OF EXISTING GENRES
 							while ($row = $genre_result->fetch_assoc())
 			 			   			{
 			 			   				$genres[]=$row[category];
 			 			   			}
-	 			   			// var_dump($genres);
+	 			   			
 	 			   			$unique_genres = array_unique($genres);
-	 			   			var_dump($unique_genres);
+	 			   			
+
+ 			   				// MAKE SELECT STRING
+							$select_string = "SELECT * FROM VideoList ";
+	 						if(!empty($_GET["genreTypes"])) 
+							{
+								
+								$genre_type =trim($_GET["genreTypes"]);
+			
+								
+							} 
+
+
+
 	 			   			?>
 	 			   			<form action="cs290-ass4b.php" id="filterGenreForm" method="GET">
 		 			   					
 		 			   				    <select id="genreTypes" name="genreTypes" >
-		 			   				    	<option selected="selected">-ALL-</option>
+		 			   				    	<option >-ALL-</option>
 		 			   				    <?php
 		 			   				    foreach ($unique_genres as $this_genre)
 		 			   				    {
-		 			   				    	echo("<option>".$this_genre."</option>");
+		 			   				    	if(strcmp($genre_type,$this_genre) == 0)
+								{
+									$selected = "SELECTED=1";
+									$select_string .= "WHERE category = '".$genre_type."'";
+								}
+								else
+								{
+									$selected="";
+								}
+		 			   				    	echo("<option ".$selected.">".$this_genre."</option>");
 		 			   				    	//echo("<option>1</option>");
 		 			   				    }
 		 			   				    	
@@ -98,18 +121,12 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 		 			   				    <?php
 	 			   		}
 	 			   			// echo("ABC<br>");
-	 			   		$select_string = "SELECT * FROM VideoList ";
-	 						if(!empty($_GET["genreTypes"]))
-							{
-								echo ("hello <br>");
-								$select_string .= "WHERE category = '".$_GET["genreTypes"]."'";
-							} 
-							echo $select_string. "<br>";
+	 			   		
 					?>
 					<table>
 				    	<tbody>
 				    		<tr>
-				   			<td>Title<td>Category<td>Length<td>Availability<td>Delete 
+				   			<td><b>Title</b><td><b>Category</b><td><b>Length</b><td><b>Availability</b><td><b>Delete</b> 
 	 		<?php
 
 							
@@ -118,16 +135,25 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 								while ($row = $result->fetch_assoc())
 		 			   			{
 		 			   				if($row[rented]==1) {$availability="Available";} else { $availability="Checked out";}
-		 			   				$delete_id=$row[id];
+		 			   				$video_id=$row[id];
 		 			   				echo("<tr>
 		 			   						<td>".$row[name].
 		 			   						"<td>".$row[category].
 		 			   				        "<td>".$row[length].
-		 			   				        "<td>".$availability.
 		 			   				        "<td>");
+?>
+		 			   				<form action="cs290-ass4b-availability.php" id="updateAvailabilityForm" method="POST">
+		 			   					<input type="hidden" name="video_id" value=' <?php echo($video_id); ?> '>
+		 			   					<input type="hidden" name="previous_availability" value=' <?php echo($row[rented]); ?> '>
+		 			   					<input type="hidden" name="genre_filter" value=' <?php echo($genre_type); ?> '>
+		 			   				    <input type="submit" name="submit" value=' <?php echo($availability); ?> '/> 
+		 			   				    </form>
+		 			   				
+<?php
+		 			   				        echo("<td>");
 		 			   				        ?>
 		 			   				<form action="cs290-ass4b-delete.php" id="deleteVideoForm" method="POST">
-		 			   					<input type="hidden" name="delete_video" value=' <?php echo($delete_id); ?> '>
+		 			   					<input type="hidden" name="delete_video" value=' <?php echo($video_id); ?> '>
 		 			   				    <input type="submit" name="submit" value="Delete" /> 
 		 			   				    </form>
 		 			   				
