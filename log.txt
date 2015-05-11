@@ -1,0 +1,31 @@
+Start: Thur, 7 May 2015 10:00:00 
+End: Thur, 7 May 2015 12:15:00 
+Tasks: Reading and watching videos for this unit
+
+Start: Thur, 7 May 2015 13:50:00 
+End: Thur, 7 May 2015 15:20:00 
+Tasks: Worked on assignment; got table printing on localhost
+
+Start: Fri, 8 May 2015 09:00:00 
+End: Fri, 8 May 2015 10:30:00 
+Tasks: Participated in Eric Ianni tutor session on PHP
+
+Start: Fri, 8 May 2015 16:00:00 
+End: Fri, 8 May 2015 17:15:00 
+Tasks: Worked on assignment; got deleting single and all entries working
+
+Start: Sat, 9 May 2015 06:30:00 
+End: Sat, 9 May 2015 08:00:00 
+Tasks: Progress on filtering; debugging of deleting - something funky with deleting all
+
+Start: Sat, 9 May 2015 14:00:00 
+End: Sat, 9 May 2015 15:20:00 
+Tasks: Checked that it works on OSU server; worked on availability code; small fixes & debugging
+
+Start: Sun, 10 May 2015 17:00:00 
+End: Sun, 10 May 2015 18:30:00 
+Tasks: Final debugging; fixed required problem of titles; had trouble getting git working properly with the src folder.
+
+
+
+
