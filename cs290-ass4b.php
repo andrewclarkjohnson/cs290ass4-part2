@@ -1,13 +1,13 @@
 <?php
-// $dbhost = 'oniddb.cws.oregonstate.edu';
-// $dbname = 'johnsan3-db';
-// $dbuser = 'johnsan3-db';
-// $dbpass = 'xIjWTTPPRNZD7mZg';
+$dbhost = 'oniddb.cws.oregonstate.edu';
+$dbname = 'johnsan3-db';
+$dbuser = 'johnsan3-db';
+$dbpass = 'xIjWTTPPRNZD7mZg';
 
-$dbhost = 'localhost';
-$dbname = 'cs290';
-$dbuser = 'root';
-$dbpass = 'root';
+// $dbhost = 'localhost';
+// $dbname = 'cs290';
+// $dbuser = 'root';
+// $dbpass = 'root';
 
 $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
     or die("Error connecting to database server");
@@ -42,7 +42,7 @@ $mysql_handle = mysql_connect($dbhost, $dbuser, $dbpass)
 		echo ("<span class='success_message'>The video was added to the database!<br></span>");
 	} 
 	?>
-    <span class="title_field">Video Title</span>:  <input type="text" name="title" /><br />
+    <span class="title_field">Video Title</span>:  <input type="text" name="title" required/><br />
     <span class="genre_field">Genre</span>: <input type="text" name="genre" /><br />
     <span class="length_field">Length (min)</span>:  <input type="text" name="length" /><br />
     <input type="submit" name="submit" value="Add" />
